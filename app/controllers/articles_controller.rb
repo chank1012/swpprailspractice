@@ -1,11 +1,19 @@
 class ArticlesController < ApplicationController
   def new
+    @article = Article.new
+  end
+
+  def index
+    @articles = Article.all
   end
 
   def create
     @article = Article.new(article_params)
-    @article.save
-    redirect_to @article # redirect to 'show' action
+    if @article.save
+      redirect_to @article  # redirect to 'show' action (article list)
+    else
+      render 'new'
+    end
   end
 
   def show
